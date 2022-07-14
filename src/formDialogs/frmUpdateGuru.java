@@ -191,7 +191,6 @@ public class frmUpdateGuru extends javax.swing.JDialog {
         Pattern pattern = Pattern.compile(new String ("^[a-zA-Z\\s]*$"));
         Matcher matcher = pattern.matcher(inputStr);
         
-        
         if(!matcher.matches()){
             JOptionPane.showMessageDialog(null
               ,"Nama tidak boleh mengandung huruf",
