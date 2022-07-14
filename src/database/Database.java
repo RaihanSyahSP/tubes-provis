@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import models.Guru;
+import models.Siswa;
 
 /**
  *
@@ -212,6 +213,41 @@ public class Database {
             }catch (Exception e) {}
         }
         return guru;
+    }
+    
+    public ArrayList <Siswa> tampilSiswa() {
+       ArrayList<Siswa> list = new ArrayList<Siswa>();
+       Connection conn = null;
+       Statement s = null;
+       try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT * FROM siswa";
+           ResultSet rs = s.executeQuery(query);
+           while(rs.next()) {
+               list.add(
+                       new Siswa (rs.getString("nis"),
+                                 rs.getString("nama_siswa"),
+                                 rs.getDate("tgl_lahir"),
+                                 rs.getString("jenis_kelamin"),
+                                 rs.getString("id_kelas")
+                       )
+               );
+           }
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return list;
     }
 }
     

@@ -8,6 +8,7 @@ package form;
 
 
 import formMultiple.frmGuruTest;
+import formMultiple.frmSiswa;
 
 
 /**
@@ -136,9 +137,8 @@ public class frmUtamaTest extends javax.swing.JFrame {
     private void menuSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSiswaActionPerformed
         // TODO add your handling code here:
         // inisisasi objek dari form mahasiswa
-//        frmSiswa siswa = new frmSiswa();
-//        desktop.add(siswa);
-//        siswa.setVisible(true);
+        frmSiswa siswa = new frmSiswa();
+        siswa.setVisible(true);
     }//GEN-LAST:event_menuSiswaActionPerformed
 
     private void menuKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelasActionPerformed
@@ -151,7 +151,6 @@ public class frmUtamaTest extends javax.swing.JFrame {
     private void menuGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuruActionPerformed
         // TODO add your handling code here:
         frmGuruTest guru = new frmGuruTest();
-//        desktop.add(guru);
         guru.setVisible(true);
     }//GEN-LAST:event_menuGuruActionPerformed
 
