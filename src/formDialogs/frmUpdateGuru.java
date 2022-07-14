@@ -7,12 +7,9 @@
 package formDialogs;
 
 import database.Database;
-import java.beans.PropertyEditorManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import models.Guru;
 
 /**
