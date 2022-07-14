@@ -30,6 +30,7 @@ public class frmGuruTest extends javax.swing.JFrame {
     public frmGuruTest() {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
+        this.setLocationRelativeTo(null);
         tampilData();
     }
     Database db = new Database();
