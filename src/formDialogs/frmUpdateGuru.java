@@ -191,21 +191,6 @@ public class frmUpdateGuru extends javax.swing.JDialog {
         Pattern pattern = Pattern.compile(new String ("^[a-zA-Z\\s]*$"));
         Matcher matcher = pattern.matcher(inputStr);
         
-        if(!txtNIP.getText().matches(nipRegex)) {
-            JOptionPane.showMessageDialog(null
-              ,"NIP kombinasi 5 Karakter diawali Huruf G dan 4 angka!! Contoh: G9876",
-               "Error!",
-            JOptionPane.ERROR_MESSAGE);
-            isValidate = true;
-        }
-        
-        if(txtNIP.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null
-              ,"NIP harus diisi",
-               "Error!",
-            JOptionPane.ERROR_MESSAGE);
-            isValidate = true;
-        }
         
         if(!matcher.matches()){
             JOptionPane.showMessageDialog(null
