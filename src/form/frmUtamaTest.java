@@ -8,6 +8,7 @@ package form;
 
 
 import formMultiple.frmGuruTest;
+import formMultiple.frmMapel;
 import formMultiple.frmSiswa;
 
 
@@ -48,7 +49,7 @@ public class frmUtamaTest extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setBackground(new java.awt.Color(0, 153, 255));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/mahasiswa.png"))); // NOI18N
         jLabel1.setText("Selamat Datang di Sistem Pengelolaan Akademik");
@@ -144,7 +145,6 @@ public class frmUtamaTest extends javax.swing.JFrame {
     private void menuKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelasActionPerformed
         // TODO add your handling code here:
 //        frmKelas kelas = new frmKelas();
-//        desktop.add(kelas);
 //        kelas.setVisible(true);
     }//GEN-LAST:event_menuKelasActionPerformed
 
@@ -156,22 +156,19 @@ public class frmUtamaTest extends javax.swing.JFrame {
 
     private void menuMapelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMapelActionPerformed
         // TODO add your handling code here:
-//        frmMapel mapel = new frmMapel();
-//        desktop.add(mapel);
-//        mapel.setVisible(true);
+        frmMapel mapel = new frmMapel();
+        mapel.setVisible(true);
     }//GEN-LAST:event_menuMapelActionPerformed
 
     private void menuJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJadwalActionPerformed
         // TODO add your handling code here:
 //        frmJadwal jadwal  = new frmJadwal();
-//        desktop.add(jadwal);
 //        jadwal.setVisible(true);
     }//GEN-LAST:event_menuJadwalActionPerformed
 
     private void menuNilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNilaiActionPerformed
         // TODO add your handling code here:
 //        frmNilai nilai = new frmNilai();
-//        desktop.add(nilai);
 //        nilai.setVisible(true);
     }//GEN-LAST:event_menuNilaiActionPerformed
 

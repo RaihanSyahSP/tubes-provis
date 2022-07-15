@@ -7,8 +7,12 @@
 package formMultiple;
 
 import database.Database;
+import formDialogs.frmTambahMapel;
+import formDialogs.frmUpdateMapel;
 import javax.swing.JOptionPane;
+import models.MataPelajaran;
 import tabelModels.GuruTableModel;
+import tabelModels.MapelTableModel;
 
 /**
  *
@@ -22,21 +26,22 @@ public class frmMapel extends javax.swing.JFrame {
     public frmMapel() {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
+        this.setLocationRelativeTo(null);
         tampilData();
     }
     
      Database db = new Database();
-    GuruTableModel tabelGuru = new GuruTableModel();
+    MapelTableModel tabelMapel = new MapelTableModel();
     
     public void tampilData() {
-        tabelGuru.setData(db.tampilGuru());
-        tGuru.setModel(tabelGuru);
+        tabelMapel.setData(db.tampilMapel());
+        tMapel.setModel(tabelMapel);
     }
     
      public void refreshData() {
-        tabelGuru.setData(db.tampilGuru());
-        tabelGuru.fireTableDataChanged();
-        tGuru.changeSelection(0, 0, false, false);
+        tabelMapel.setData(db.tampilMapel());
+        tabelMapel.fireTableDataChanged();
+        tMapel.changeSelection(0, 0, false, false);
     }
 
     /**
@@ -50,12 +55,12 @@ public class frmMapel extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tGuru = new javax.swing.JTable();
+        tMapel = new javax.swing.JTable();
         btnKembali = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
-        btnEditGuru = new javax.swing.JButton();
-        btnHapusGuru = new javax.swing.JButton();
-        btnCariGuru = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        btnCari = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,8 +69,8 @@ public class frmMapel extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Data Mata Pelajaran");
 
-        tGuru.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        tGuru.setModel(new javax.swing.table.DefaultTableModel(
+        tMapel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        tMapel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,8 +81,8 @@ public class frmMapel extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tGuru.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane2.setViewportView(tGuru);
+        tMapel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(tMapel);
 
         btnKembali.setBackground(new java.awt.Color(0, 153, 0));
         btnKembali.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
@@ -102,36 +107,36 @@ public class frmMapel extends javax.swing.JFrame {
             }
         });
 
-        btnEditGuru.setBackground(new java.awt.Color(255, 102, 0));
-        btnEditGuru.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
-        btnEditGuru.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/edit.png"))); // NOI18N
-        btnEditGuru.setText("Edit");
-        btnEditGuru.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setBackground(new java.awt.Color(255, 102, 0));
+        btnEdit.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/edit.png"))); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditGuruActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
-        btnHapusGuru.setBackground(new java.awt.Color(255, 102, 0));
-        btnHapusGuru.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
-        btnHapusGuru.setForeground(new java.awt.Color(255, 255, 255));
-        btnHapusGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/delete.png"))); // NOI18N
-        btnHapusGuru.setText("Hapus");
-        btnHapusGuru.addActionListener(new java.awt.event.ActionListener() {
+        btnHapus.setBackground(new java.awt.Color(255, 102, 0));
+        btnHapus.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/delete.png"))); // NOI18N
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHapusGuruActionPerformed(evt);
+                btnHapusActionPerformed(evt);
             }
         });
 
-        btnCariGuru.setBackground(new java.awt.Color(255, 102, 0));
-        btnCariGuru.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
-        btnCariGuru.setForeground(new java.awt.Color(255, 255, 255));
-        btnCariGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/search.png"))); // NOI18N
-        btnCariGuru.setText("Cari");
-        btnCariGuru.addActionListener(new java.awt.event.ActionListener() {
+        btnCari.setBackground(new java.awt.Color(255, 102, 0));
+        btnCari.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        btnCari.setForeground(new java.awt.Color(255, 255, 255));
+        btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/search.png"))); // NOI18N
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariGuruActionPerformed(evt);
+                btnCariActionPerformed(evt);
             }
         });
 
@@ -166,10 +171,10 @@ public class frmMapel extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCariGuru, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHapusGuru, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditGuru, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnTambah))
                         .addGap(18, 18, 18))))
         );
@@ -184,11 +189,11 @@ public class frmMapel extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditGuru)
+                        .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnHapusGuru)
+                        .addComponent(btnHapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCariGuru)
+                        .addComponent(btnCari)
                         .addGap(11, 11, 11)
                         .addComponent(btnRefresh)
                         .addGap(174, 174, 174))
@@ -207,74 +212,72 @@ public class frmMapel extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-//        frmTambahGuru frm = new frmTambahGuru(this, true);
-//        frm.setVisible(true);
-//        frm.txtNIP.setText("");
-//        frm.txtNama.setText("");
-//        frm.txtAlamat.setText("");
-//        frm.txtPendidikan.setText("");
+        frmTambahMapel frm = new frmTambahMapel(this, true);
+        frm.setVisible(true);
+        frm.txtNoMapel.setText("");
+        frm.txtNamaMapel.setText("");
+        frm.txtJumlahJam.setText("");
         refreshData();
 
     }//GEN-LAST:event_btnTambahActionPerformed
 
-    private void btnEditGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditGuruActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-//        frmUpdateGuru frm = new frmUpdateGuru(this, true);
-//
-//        //lakukan pengecekan data berdasarkan pilihan kursor
-//        int baris = tGuru.getSelectedRow();
-//        String nip = (String) tabelGuru.getValueAt(baris, 0);
-//        Guru guru = db.pilihGuru(nip);
-//        if(guru != null) {
-//            frm.setForm(guru);
-//            frm.setVisible(true);
-//            refreshData();
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Guu dengan NIP " + nip + " tidak ditemukan");
-//        }
+        frmUpdateMapel frm = new frmUpdateMapel(this, true);
 
-    }//GEN-LAST:event_btnEditGuruActionPerformed
+        //lakukan pengecekan data berdasarkan pilihan kursor
+        int baris = tMapel.getSelectedRow();
+        String noMapel = (String) tabelMapel.getValueAt(baris, 0);
+        MataPelajaran mapel = db.pilihMapel(noMapel);
+        if(mapel != null) {
+            frm.setForm(mapel);
+            frm.setVisible(true);
+            refreshData();
+        } else {
+            JOptionPane.showMessageDialog(null, "Mata Pelajaran dengan no mapel " + noMapel + " tidak ditemukan");
+        }
 
-    private void btnHapusGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusGuruActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
         try {
-            int baris = tGuru.getSelectedRow();
-            String nip = (String) tabelGuru.getValueAt(baris, 0);
-            String nama = (String) tabelGuru.getValueAt(baris, 1);
-            String alamat = (String) tabelGuru.getValueAt(baris, 2);
-            String pendidikan = (String) tabelGuru.getValueAt(baris, 3);
+            int baris = tMapel.getSelectedRow();
+            String noMapel = (String) tabelMapel.getValueAt(baris, 0);
+            String namaMapel = (String) tabelMapel.getValueAt(baris, 1);
+            Object jumlahJam =  tabelMapel.getValueAt(baris, 2);
             Object[] pilihan = {"Ya", "Tidak"};
             int jawaban = JOptionPane.showOptionDialog(
                 null,
                 "Anda Yakin data " +
-                "Guru dengan NIP " + nip +
-                " dengan nama " + nama +
-                " akan" + "dihapus ?","Peringatan",
+                "Guru dengan No Mapel " + noMapel +
+                " dengan nama " + namaMapel +
+                " akan" + " dihapus ?","Peringatan",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null,pilihan,pilihan[0]
             );
 
             if(jawaban==0) {
-                db.hapusGuru(nip);
+                db.hapusMapel(noMapel);
                 refreshData();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus");
         }
-    }//GEN-LAST:event_btnHapusGuruActionPerformed
+    }//GEN-LAST:event_btnHapusActionPerformed
 
-    private void btnCariGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariGuruActionPerformed
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
         String kataKunci;
-        kataKunci=JOptionPane.showInputDialog(null,"NIP Guru yang dicari ?"
+        kataKunci=JOptionPane.showInputDialog(null,"No Mapel yang dicari ?"
             ,"Filter/Pencarian",JOptionPane.QUESTION_MESSAGE);
         if(kataKunci!=null)
         {
-            tabelGuru.setData(db.filterGuru(kataKunci));
-            tabelGuru.fireTableDataChanged();
+            tabelMapel.setData(db.filterMapel(kataKunci));
+            tabelMapel.fireTableDataChanged();
         }  else {
             JOptionPane.showMessageDialog(null, "Data guru tidak ditemukan!!!");
         }
-    }//GEN-LAST:event_btnCariGuruActionPerformed
+    }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
@@ -317,14 +320,14 @@ public class frmMapel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCariGuru;
-    private javax.swing.JButton btnEditGuru;
-    private javax.swing.JButton btnHapusGuru;
+    private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnKembali;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tGuru;
+    private javax.swing.JTable tMapel;
     // End of variables declaration//GEN-END:variables
 }

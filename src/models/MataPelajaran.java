@@ -14,7 +14,7 @@ public class MataPelajaran {
     private String noMapel;
     private String namaMapel;
     private double jumlahJam;
-    
+
     
     public void setNoMapel(String noMapel) {
         this.noMapel = noMapel;
@@ -38,6 +38,12 @@ public class MataPelajaran {
     
     public double getJumlahJam() {
         return jumlahJam;
+    }
+    
+    public MataPelajaran(String noMapel, String namaMapel, double jumlahJam) {
+        setNoMapel(noMapel);
+        setNamaMapel(namaMapel);
+        setJumlahJam(jumlahJam);
     }
     
 }

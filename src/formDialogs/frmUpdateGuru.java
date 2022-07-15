@@ -25,6 +25,7 @@ public class frmUpdateGuru extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         txtNIP.setEditable(false);
+        this.setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
     }
     
@@ -239,7 +240,7 @@ public class frmUpdateGuru extends javax.swing.JDialog {
  
         if (isValidate == false) {
                 Database db = new Database();
-                db.tambahGuru(new Guru(
+                db.updateGuru(new Guru(
                 txtNIP.getText(),
                 txtNama.getText(),
                 txtAlamat.getText(), 
@@ -247,7 +248,7 @@ public class frmUpdateGuru extends javax.swing.JDialog {
                         
             ));
                 JOptionPane.showMessageDialog(null
-              ,"Data Berhasil ditambahkan!!!");
+              ,"Data Berhasil diedit!!!");
                 setVisible(false);
         } else {
             isValidate = true;

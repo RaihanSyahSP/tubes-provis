@@ -32,6 +32,7 @@ public class frmTambahGuru extends javax.swing.JDialog {
     public frmTambahGuru(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
     }
     

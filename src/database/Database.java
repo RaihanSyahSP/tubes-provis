@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import models.Guru;
+import models.MataPelajaran;
 import models.Siswa;
 
 /**
@@ -25,6 +26,8 @@ public class Database {
     public final String user = "root";
     public final String pass = "";
     
+    
+    //function guru
     public ArrayList <Guru> tampilGuru() {
        ArrayList<Guru> list = new ArrayList<Guru>();
        Connection conn = null;
@@ -72,8 +75,10 @@ public class Database {
                     guru.getAlamat() + "','" + 
                     guru.getPendidikan() + "')";
             s.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data Guru berhasil ditambahkan!");
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Guru gagal ditambahkan!" + e.getMessage());
         } finally {
             try {
                 s.close();
@@ -215,6 +220,8 @@ public class Database {
         return guru;
     }
     
+    
+    // function siswa
     public ArrayList <Siswa> tampilSiswa() {
        ArrayList<Siswa> list = new ArrayList<Siswa>();
        Connection conn = null;
@@ -249,102 +256,193 @@ public class Database {
        }
        return list;
     }
+    
+   // function mapel
+    public ArrayList <MataPelajaran> tampilMapel() {
+       ArrayList<MataPelajaran> list = new ArrayList<MataPelajaran>();
+       Connection conn = null;
+       Statement s = null;
+       try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT * FROM mata_pelajaran";
+           ResultSet rs = s.executeQuery(query);
+           while(rs.next()) {
+               list.add(
+                       new MataPelajaran (rs.getString("no_mapel"),
+                                          rs.getString("nama_mapel"),
+                                          rs.getDouble("jumlah_jam")
+                       )
+               );
+           }
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return list;
+    }
+    
+    
+    public void tambahMapel(MataPelajaran mapel) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "INSERT INTO mata_pelajaran VALUES ('" + 
+                    mapel.getNoMapel()+ "','" + 
+                    mapel.getNamaMapel() + "','" + 
+                    mapel.getJumlahJam() + "')";
+            s.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data Mata Pelajaran berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Mata Pelajaran gagal ditambahkan!" + e.getMessage());
+        } finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+    }
+    
+     public void hapusMapel(String noMapel) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "DELETE FROM mata_pelajaran WHERE no_mapel = '" + noMapel + "'";
+            s.executeUpdate(query);   
+        } catch(Exception e){
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Mata Pelajaran gagal dihapus!" + e.getMessage());
+        }
+        finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+    }
+     
+     public ArrayList<MataPelajaran> filterMapel(String kataKunci) {
+        ArrayList<MataPelajaran> listMapel = new ArrayList<MataPelajaran>();
+        Connection conn = null;
+        Statement s = null;
+        try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT * FROM mata_pelajaran WHERE no_mapel like '%"+kataKunci+"%'"; 
+           ResultSet rs = s.executeQuery(query);
+           boolean found = false;
+           while(rs.next()) {
+               listMapel.add(
+                       new MataPelajaran (rs.getString("no_mapel"),
+                                          rs.getString("nama_mapel"),
+                                          rs.getDouble("jumlah_jam")
+                       )
+               );
+               found = true;
+           }
+            
+           if(found){
+               JOptionPane.showMessageDialog(null, "Data Mata Pelajaran Ditemukan!!");
+            } else {
+               JOptionPane.showMessageDialog(null, "Data Mata Pelajaran Tidak Ditemukan!!");
+           }
+            
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+            
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return listMapel;
+    }
+     
+     public void updateMapel(MataPelajaran mapel) {
+        Connection conn = null;
+        Statement stmt = null;
+        
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String query = "UPDATE mata_pelajaran set no_mapel = '" + mapel.getNoMapel() +
+                           "'," + "nama_mapel = '" + mapel.getNamaMapel() +
+                           "'," + "jumlah_jam = '" + mapel.getJumlahJam() +
+                          "' WHERE no_mapel = '" + mapel.getNoMapel() + "'";
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+    }
+     
+     public MataPelajaran pilihMapel(String noMapel) {
+        MataPelajaran mapel = null;
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM mata_pelajaran WHERE no_mapel = '" + noMapel + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()) {
+                mapel = new MataPelajaran (rs.getString("no_mapel"),
+                                          rs.getString("nama_mapel"),
+                                          rs.getDouble("jumlah_jam")
+                );
+            } else {
+                mapel = null;
+            }
+            rs.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+        return mapel;
+    }
+    
+    
 }
     
-//    public void tambah_guru () {
-//       Connection conn = null;
-//       Statement s = null;
-//       try {
-//           Class.forName(driver);
-//           conn = DriverManager.getConnection(url, user, pass);
-//           s = conn.createStatement();
-//           String query = "SELECT * FROM guru";
-//           ResultSet rs = s.executeQuery(query);
-//           while(rs.next()) {
-//               list.add(
-//                       new Guru (rs.getString("nip"),
-//                                 rs.getString("nama_guru"),
-//                                 rs.getString("alamat"),
-//                                 rs.getString("pendidikan")
-//                       )
-//               );
-//           }
-//           rs.close();
-//           
-//       } catch (Exception e) {
-//           System.out.println("Error : " + e.getMessage());
-//       } finally {
-//           try {
-//               s.close();
-//           } catch (Exception e) {}
-//           try {
-//               conn.close();
-//           } catch (Exception e) {}
-//       }
-//    }
-//    private Connection conn;
-//    private String address;
-//    private String username;
-//    private String password;
-//    
-//    public Database(){
-//        connect();
-//    }
-//    public void setProperties(String address, String username, String password){
-//        this.address = address;
-//        this.username = username;
-//        this.password = password;
-//    }
-//
-//    void connect() {
-//        this.address = "jdbc:mysql://localhost/db_sekolah";
-//        this.username = "root";
-//        this.password = "";
-//        
-//        
-//        try{
-//            conn = DriverManager.getConnection(address, username, password);
-//            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-//            conn.setAutoCommit(false);
-//            System.out.println("Succesfully Connected");
-//        }
-//        catch(SQLException e){
-//            System.out.println(e + "Failed to connect");
-//        }
-//    }
-//    
-//    
-//    public void tambah_guru(Guru guru) {
-////        Connection connection = new Connection();
-//        try {
-//            Statement s = conn.createStatement();
-//            String query = "INSERT INTO guru VALUES(" + guru.getNip() + "," +
-//                            guru.getNamaGuru() + "," + 
-//                            guru.getAlamat() + "," +
-//                            guru.getPendidikan() + ")";
-//            
-//            s.execute(query);
-//            conn.commit();
-//            s.close();
-//            
-//        } catch(SQLException e) {
-//             System.out.println("Error : " + e);
-//            
-//        }
-//    }
-//    
-//    public void delete_guru(Guru guru) {
-//        try {
-//            Statement s = conn.createStatement();
-//            String query = "DELETE FROM guru WHERE nip = '" + guru.getNip() + "'" ;
-//            
-//            s.execute(query);
-//            conn.commit();
-//            s.close();
-//            
-//        } catch(SQLException e) {
-//             System.out.println("Error : " + e);
-//             System.out.println("data guru gagal dihapus");
-//            
-//        }
-//    }
