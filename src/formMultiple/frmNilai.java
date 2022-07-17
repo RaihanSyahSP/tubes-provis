@@ -60,7 +60,7 @@ public class frmNilai extends javax.swing.JFrame {
         btnCari = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,6 +72,7 @@ public class frmNilai extends javax.swing.JFrame {
         btnKembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/back-arrow - Copy (2).png"))); // NOI18N
         btnKembali.setText("Kembali");
         btnKembali.setBorderPainted(false);
+        btnKembali.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKembaliActionPerformed(evt);
@@ -98,6 +99,7 @@ public class frmNilai extends javax.swing.JFrame {
         btnTambah.setForeground(new java.awt.Color(255, 255, 255));
         btnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/plus (1).png"))); // NOI18N
         btnTambah.setText("Tambah");
+        btnTambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
@@ -109,6 +111,7 @@ public class frmNilai extends javax.swing.JFrame {
         btnCari.setForeground(new java.awt.Color(255, 255, 255));
         btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/search.png"))); // NOI18N
         btnCari.setText("Cari");
+        btnCari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCariActionPerformed(evt);
@@ -120,6 +123,7 @@ public class frmNilai extends javax.swing.JFrame {
         btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/refresh.png"))); // NOI18N
         btnRefresh.setText("Refresh");
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);

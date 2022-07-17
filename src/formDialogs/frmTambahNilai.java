@@ -147,6 +147,7 @@ public class frmTambahNilai extends javax.swing.JDialog {
         tblSimpan.setBackground(new java.awt.Color(51, 204, 0));
         tblSimpan.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         tblSimpan.setText("Simpan");
+        tblSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tblSimpanActionPerformed(evt);
@@ -156,6 +157,7 @@ public class frmTambahNilai extends javax.swing.JDialog {
         tblBatal.setBackground(new java.awt.Color(255, 0, 0));
         tblBatal.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         tblBatal.setText("Batal");
+        tblBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tblBatalActionPerformed(evt);

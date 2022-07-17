@@ -9,6 +9,7 @@ package formMultiple;
 import database.Database;
 import formDialogs.frmTambahGuru;
 import formDialogs.frmUpdateGuru;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import models.Guru;
 import tabelModels.GuruTableModel;
@@ -74,6 +75,7 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnTambah.setForeground(new java.awt.Color(255, 255, 255));
         btnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/plus (1).png"))); // NOI18N
         btnTambah.setText("Tambah");
+        btnTambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
@@ -101,6 +103,7 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnEditGuru.setForeground(new java.awt.Color(255, 255, 255));
         btnEditGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/edit.png"))); // NOI18N
         btnEditGuru.setText("Edit");
+        btnEditGuru.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditGuru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditGuruActionPerformed(evt);
@@ -112,6 +115,7 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnHapusGuru.setForeground(new java.awt.Color(255, 255, 255));
         btnHapusGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/delete.png"))); // NOI18N
         btnHapusGuru.setText("Hapus");
+        btnHapusGuru.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHapusGuru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusGuruActionPerformed(evt);
@@ -123,6 +127,7 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnCariGuru.setForeground(new java.awt.Color(255, 255, 255));
         btnCariGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/search.png"))); // NOI18N
         btnCariGuru.setText("Cari");
+        btnCariGuru.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCariGuru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCariGuruActionPerformed(evt);
@@ -134,6 +139,7 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/refresh.png"))); // NOI18N
         btnRefresh.setText("Refresh");
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
@@ -150,6 +156,7 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnKembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/back-arrow - Copy (2).png"))); // NOI18N
         btnKembali.setText("Kembali");
         btnKembali.setBorderPainted(false);
+        btnKembali.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKembaliActionPerformed(evt);

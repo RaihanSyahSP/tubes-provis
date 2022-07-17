@@ -5,16 +5,27 @@
         <group>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/models/MataPelajaran.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmNilai.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateGuru.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/MapelTableModel.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/models/Mempelajari.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahGuru.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahMapel.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateMapel.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/models/Kelas.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/form/frmUtamaTest.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/database/Database.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmMapel.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/NilaiTableModel.java</file>
             <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahNilai.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/SiswaTableModel.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmGuruTest.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateGuru.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmKelas.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahKelas.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/KelasTableModel.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateKelas.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmSiswa.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahGuru.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/GuruTableModel.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahSiswa.java</file>
+            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmMapel.java</file>
         </group>
     </open-files>
 </project-private>

@@ -87,10 +87,9 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbKelas = new javax.swing.JComboBox<>();
+        cbKelas = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
-        txtTglLahir = new com.toedter.calendar.JDateChooser();
-        cbJK = new javax.swing.JComboBox<>();
+        cbJK = new javax.swing.JComboBox<String>();
         tblSimpan = new javax.swing.JButton();
         tblBatal = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -100,20 +99,22 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtNIS = new javax.swing.JTextField();
         txtNama = new javax.swing.JTextField();
+        txtTglLahir = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        cbKelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Kelas --" }));
+        cbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Pilih Kelas --" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Kelas");
 
-        cbJK.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Jenis Kelamin --", "L", "P" }));
+        cbJK.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Pilih Jenis Kelamin --", "L", "P" }));
 
         tblSimpan.setBackground(new java.awt.Color(51, 204, 0));
         tblSimpan.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         tblSimpan.setText("Simpan");
+        tblSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tblSimpanActionPerformed(evt);
@@ -123,6 +124,7 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
         tblBatal.setBackground(new java.awt.Color(255, 0, 0));
         tblBatal.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         tblBatal.setText("Batal");
+        tblBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tblBatalActionPerformed(evt);
@@ -190,8 +192,8 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
                                 .addComponent(tblBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(22, 22, 22)
-                                .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -208,10 +210,10 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
@@ -224,7 +226,7 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tblSimpan)
                     .addComponent(tblBatal))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();

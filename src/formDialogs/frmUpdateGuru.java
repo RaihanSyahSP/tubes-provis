@@ -96,6 +96,7 @@ public class frmUpdateGuru extends javax.swing.JDialog {
         tblEdit.setBackground(new java.awt.Color(51, 204, 0));
         tblEdit.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         tblEdit.setText("Edit");
+        tblEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tblEditActionPerformed(evt);
@@ -105,6 +106,7 @@ public class frmUpdateGuru extends javax.swing.JDialog {
         tblBatal.setBackground(new java.awt.Color(255, 51, 0));
         tblBatal.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         tblBatal.setText("Batal");
+        tblBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tblBatalActionPerformed(evt);
