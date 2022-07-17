@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import models.Guru;
+import models.Kelas;
 import models.MataPelajaran;
 import models.Mempelajari;
 import models.Siswa;
@@ -552,6 +553,193 @@ public class Database {
        }
        return listNilai;
     }
+    
+    //function kelas
+    public ArrayList <Kelas> tampilKelas() {
+       ArrayList<Kelas> list = new ArrayList<Kelas>();
+       Connection conn = null;
+       Statement s = null;
+       try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT k.id_kelas,k.nama_kelas,g.nama_guru FROM kelas k join guru g on k.nip=g.nip";
+           ResultSet rs = s.executeQuery(query);
+           while(rs.next()) {
+               list.add(
+                       new Kelas (rs.getString("id_kelas"),
+                                  rs.getString("nama_kelas"),
+                                  rs.getString("nama_guru")
+                       )
+               );
+           }
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return list;
+    }
+    
+    public void tambahKelas(Kelas kelas) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "INSERT INTO kelas VALUES ('" + 
+                    kelas.getIdKelas()+ "','" + 
+                    kelas.getNamaKelas() + "','" + 
+                    kelas.getNip() + "')";
+            s.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data Kelas berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Kelas gagal ditambahkan!" + e.getMessage());
+        } finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+    }
+    
+    public ArrayList<Kelas> filterKelas(String kataKunci) {
+        ArrayList<Kelas> listKelas = new ArrayList<Kelas>();
+        Connection conn = null;
+        Statement s = null;
+        try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT * FROM kelas WHERE id_kelas like '%"+kataKunci+"%'"; 
+           ResultSet rs = s.executeQuery(query);
+           boolean found = false;
+           while(rs.next()) {
+               listKelas.add(
+                       new Kelas (rs.getString("id_kelas"),
+                                          rs.getString("nama_kelas"),
+                                          rs.getString("nip")
+                       )
+               );
+               found = true;
+           }
+            
+           if(found){
+               JOptionPane.showMessageDialog(null, "Data Kelas Ditemukan!!");
+            } else {
+               JOptionPane.showMessageDialog(null, "Data Kelas Tidak Ditemukan!!");
+           }
+            
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+            
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return listKelas;
+    }
+    
+    public void hapusKelas(String idKelas) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "DELETE FROM kelas WHERE id_kelas = '" + idKelas + "'";
+            s.executeUpdate(query); 
+            JOptionPane.showMessageDialog(null, "Data Kelas berhasil dihapus");
+        } catch(Exception e){
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Kelas gagal dihapus!" + e.getMessage());
+        }
+        finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+    }
+    
+      public void updateKelas(Kelas kelas) {
+        Connection conn = null;
+        Statement stmt = null;
+        
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String query = "UPDATE kelas set id_kelas = '" + kelas.getIdKelas()+
+                           "'," + "nama_kelas = '" + kelas.getNamaKelas()+
+                           "'," + "nip = '" + kelas.getNip()+
+                          "' WHERE id_kelas = '" + kelas.getIdKelas()+ "'";
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+    }
+     
+     public Kelas pilihKelas(String idKelas) {
+        Kelas kelas = null;
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM kelas WHERE id_kelas = '" + idKelas + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()) {
+                kelas = new Kelas (rs.getString("id_kelas"),
+                                          rs.getString("nama_kelas"),
+                                          rs.getString("nip")
+                );
+            } else {
+                kelas = null;
+            }
+            rs.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+        return kelas;
+    }
+    
     
 }
     

@@ -12,26 +12,23 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import models.MataPelajaran;
-import models.Mempelajari;
-//import models.TambahMempelajari;
+import models.Kelas;
 
 /**
  *
  * @author iqbal
  */
-public class frmTambahNilai extends javax.swing.JDialog {
+public class frmTambahKelas extends javax.swing.JDialog {
 
     /**
-     * Creates new form frmTambahNilai
+     * Creates new form frmTambahKelas
      */
-    public frmTambahNilai(java.awt.Frame parent, boolean modal) {
+    public frmTambahKelas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
         this.setLocationRelativeTo(null);
-        tampilNis();
-        tampilNoMapel();
+        tampilNip();
     }
     
     public final String driver = "com.mysql.jdbc.Driver";
@@ -40,20 +37,20 @@ public class frmTambahNilai extends javax.swing.JDialog {
     public final String pass = "";
     
     
-    public void tampilNis() {
+    public void tampilNip() {
         Connection conn = null;
         Statement stmt = null;
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, user, pass);
             stmt = conn.createStatement();
-            String query = "SELECT nis, nama_siswa FROM siswa";
+            String query = "SELECT nip, nama_guru FROM guru";
             ResultSet rs = stmt.executeQuery(query);
             
             while (rs.next()) {                
                 Object[] obj = new Object[1];
-                obj[0] = rs.getString("nis") + " - " + rs.getString("nama_siswa");
-                cbNis.addItem((String)obj[0]);
+                obj[0] = rs.getString("nip") + " - " + rs.getString("nama_guru");
+                cbNip.addItem((String)obj[0]);
             }
             rs.close();
             
@@ -69,37 +66,6 @@ public class frmTambahNilai extends javax.swing.JDialog {
             }catch (Exception e) {}
         }
     }
-    
-    public void tampilNoMapel() {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, pass);
-            stmt = conn.createStatement();
-            String query = "SELECT no_mapel, nama_mapel FROM mata_pelajaran";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while (rs.next()) {                
-                Object[] obj = new Object[1];
-                obj[0] = rs.getString("no_mapel") + " - " + rs.getString("nama_mapel");
-                cbNoMapel.addItem((String)obj[0]);
-            }
-            rs.close();
-            
-        } catch (Exception e) {
-            System.out.println("Error :" + e.getMessage());
-        } finally {
-            try {
-                stmt.close();
-            } catch (Exception e) {}
-            try {
-                conn.close();
-            }catch (Exception e) {}
-        }
-    }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,38 +77,32 @@ public class frmTambahNilai extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtNilai = new javax.swing.JTextField();
+        txtIdKelas = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtNamaKelas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tblSimpan = new javax.swing.JButton();
         tblBatal = new javax.swing.JButton();
-        cbNis = new javax.swing.JComboBox();
-        cbNoMapel = new javax.swing.JComboBox();
+        cbNip = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Form Tambah Data Nilai");
-
-        txtNilai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNilaiActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Form Tambah Data Kelas");
 
         jLabel2.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nilai");
+        jLabel2.setText("ID Kelas");
 
         jLabel3.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("NIS");
+        jLabel3.setText("Nama Kelas");
 
         jLabel4.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("No Mapel");
+        jLabel4.setText("NIP");
 
         tblSimpan.setBackground(new java.awt.Color(51, 204, 0));
         tblSimpan.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
@@ -162,76 +122,59 @@ public class frmTambahNilai extends javax.swing.JDialog {
             }
         });
 
-        cbNis.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cbNis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Pilih NIS--" }));
-        cbNis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbNisActionPerformed(evt);
-            }
-        });
-
-        cbNoMapel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cbNoMapel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Pilih No Mapel--" }));
-        cbNoMapel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbNoMapelActionPerformed(evt);
-            }
-        });
+        cbNip.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        cbNip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Pilih NIP--" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(tblSimpan)
+                        .addGap(77, 77, 77)
+                        .addComponent(tblBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(70, 70, 70)
-                                .addComponent(cbNis, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIdKelas)
+                            .addComponent(cbNip, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(35, 35, 35)
-                                .addComponent(cbNoMapel, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNilai, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(tblSimpan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tblBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 102, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtNamaKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbNis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbNoMapel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNilai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
+                    .addComponent(txtIdKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNamaKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cbNip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tblSimpan)
                     .addComponent(tblBatal))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,52 +182,53 @@ public class frmTambahNilai extends javax.swing.JDialog {
 
     private void tblSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblSimpanActionPerformed
         // TODO add your handling code here:
-
-          //split combo box nis
-            String[] splitNis = String.valueOf(cbNis.getSelectedItem()).split(" - "); 
-            String nis = splitNis[0];
-            System.out.println(nis);
-            
-            //split combo box nomapel
-            String[] splitNoMapel = String.valueOf(cbNoMapel.getSelectedItem()).split(" - ");
-            String noMapel = splitNoMapel[0];
-            System.out.println(noMapel);
         
+        //split combo box nip
+            String[] splitNoMapel = String.valueOf(cbNip.getSelectedItem()).split(" - ");
+            String nip = splitNoMapel[0];
+            System.out.println(nip);
+
         //validasi
         boolean isValidate = true;
-        
-        if(cbNis.getSelectedIndex() == 0) {
-             JOptionPane.showMessageDialog(null
-                ,"Nis harus diisi",
+        String regexIdKelas = "^[K]{1}[0-9]{2}$";
+        if(!txtIdKelas.getText().matches(regexIdKelas)) {
+                        JOptionPane.showMessageDialog(null
+                                ,"ID Kelas kombinasi 2 Karakter diawali Huruf K dan 2 angka!! Contoh: K30",
+                                "Error!",
+                                JOptionPane.ERROR_MESSAGE);
+                        isValidate = false;
+        }
+//
+        if(txtIdKelas.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null
+                ,"No Kelas harus diisi",
+                "Error!",
+                JOptionPane.ERROR_MESSAGE);
+            isValidate = false;
+        }
+//
+        if(txtNamaKelas.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null
+                ,"Nama Mata Kelas harus diisi",
                 "Error!",
                 JOptionPane.ERROR_MESSAGE);
             isValidate = false;
         }
         
-        if(cbNoMapel.getSelectedIndex() == 0) {
+        if(cbNip.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null
                 ,"No Mapel harus diisi",
                 "Error!",
                 JOptionPane.ERROR_MESSAGE);
             isValidate = false;
         }
-        
-        String regexNilai = "^(0|[1-9][0-9]?|100)$";
-        
-        if(!txtNilai.getText().matches(regexNilai)) {
-            JOptionPane.showMessageDialog(null
-                ,"Format nilai harus angka!!!",
-                "Error!",
-                JOptionPane.ERROR_MESSAGE);
-            isValidate = false;
-        }
-        
+
         if (isValidate == true) {
             Database db = new Database();
-            db.tambahNilai(new Mempelajari(
-                nis,
-                noMapel,
-                Double.parseDouble(txtNilai.getText())   
+            db.tambahKelas(new Kelas(
+                txtIdKelas.getText(),
+                txtNamaKelas.getText(), 
+                nip
             ));
             setVisible(false);
         } else {
@@ -297,18 +241,6 @@ public class frmTambahNilai extends javax.swing.JDialog {
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_tblBatalActionPerformed
-
-    private void txtNilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNilaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNilaiActionPerformed
-
-    private void cbNisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbNisActionPerformed
-
-    private void cbNoMapelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNoMapelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbNoMapelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,20 +259,20 @@ public class frmTambahNilai extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmTambahNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmTambahKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmTambahNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmTambahKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmTambahNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmTambahKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmTambahNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmTambahKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmTambahNilai dialog = new frmTambahNilai(new javax.swing.JFrame(), true);
+                frmTambahKelas dialog = new frmTambahKelas(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -353,14 +285,14 @@ public class frmTambahNilai extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox cbNis;
-    public javax.swing.JComboBox cbNoMapel;
+    public javax.swing.JComboBox cbNip;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     public javax.swing.JButton tblBatal;
     public javax.swing.JButton tblSimpan;
-    public javax.swing.JTextField txtNilai;
+    public javax.swing.JTextField txtIdKelas;
+    public javax.swing.JTextField txtNamaKelas;
     // End of variables declaration//GEN-END:variables
 }

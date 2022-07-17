@@ -8,6 +8,7 @@ package form;
 
 
 import formMultiple.frmGuruTest;
+import formMultiple.frmKelas;
 import formMultiple.frmMapel;
 import formMultiple.frmNilai;
 import formMultiple.frmSiswa;
@@ -145,8 +146,8 @@ public class frmUtamaTest extends javax.swing.JFrame {
 
     private void menuKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuKelasActionPerformed
         // TODO add your handling code here:
-//        frmKelas kelas = new frmKelas();
-//        kelas.setVisible(true);
+        frmKelas kelas = new frmKelas();
+        kelas.setVisible(true);
     }//GEN-LAST:event_menuKelasActionPerformed
 
     private void menuGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuruActionPerformed

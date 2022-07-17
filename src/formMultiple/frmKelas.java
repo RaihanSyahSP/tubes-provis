@@ -7,23 +7,22 @@
 package formMultiple;
 
 import database.Database;
-import formDialogs.frmTambahMapel;
-import formDialogs.frmUpdateMapel;
+import formDialogs.frmTambahKelas;
+import formDialogs.frmUpdateKelas;
 import javax.swing.JOptionPane;
-import models.MataPelajaran;
-import tabelModels.GuruTableModel;
-import tabelModels.MapelTableModel;
+import models.Kelas;
+import tabelModels.KelasTableModel;
 
 /**
  *
  * @author iqbal
  */
-public class frmMapel extends javax.swing.JFrame {
+public class frmKelas extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmMapel
+     * Creates new form frmKelas
      */
-    public frmMapel() {
+    public frmKelas() {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
         this.setLocationRelativeTo(null);
@@ -31,17 +30,17 @@ public class frmMapel extends javax.swing.JFrame {
     }
     
     Database db = new Database();
-    MapelTableModel tabelMapel = new MapelTableModel();
+    KelasTableModel tabelKelas = new KelasTableModel();
     
     public void tampilData() {
-        tabelMapel.setData(db.tampilMapel());
-        tMapel.setModel(tabelMapel);
+        tabelKelas.setData(db.tampilKelas());
+        tKelas.setModel(tabelKelas);
     }
     
      public void refreshData() {
-        tabelMapel.setData(db.tampilMapel());
-        tabelMapel.fireTableDataChanged();
-        tMapel.changeSelection(0, 0, false, false);
+        tabelKelas.setData(db.tampilKelas());
+        tabelKelas.fireTableDataChanged();
+        tKelas.changeSelection(0, 0, false, false);
     }
 
     /**
@@ -54,35 +53,20 @@ public class frmMapel extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tMapel = new javax.swing.JTable();
         btnKembali = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tKelas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Data Mata Pelajaran");
-
-        tMapel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        tMapel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tMapel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane2.setViewportView(tMapel);
+        jLabel2.setText("Data Kelas");
 
         btnKembali.setBackground(new java.awt.Color(0, 153, 0));
         btnKembali.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
@@ -151,6 +135,21 @@ public class frmMapel extends javax.swing.JFrame {
             }
         });
 
+        tKelas.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        tKelas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tKelas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(tKelas);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,46 +159,43 @@ public class frmMapel extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(258, 258, 258))
+                        .addGap(263, 263, 263)
+                        .addComponent(btnKembali))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnKembali)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTambah))
-                        .addGap(18, 18, 18))))
+                            .addComponent(btnCari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTambah, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnHapus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnKembali)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnKembali))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
                         .addComponent(btnTambah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnHapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCari)
-                        .addGap(11, 11, 11)
-                        .addComponent(btnRefresh)
-                        .addGap(174, 174, 174))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                        .addComponent(btnEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,29 +208,29 @@ public class frmMapel extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-        frmTambahMapel frm = new frmTambahMapel(this, true);
+        frmTambahKelas frm = new frmTambahKelas(this, true);
         frm.setVisible(true);
-        frm.txtNoMapel.setText("");
-        frm.txtNamaMapel.setText("");
-        frm.txtJumlahJam.setText("");
+        frm.txtIdKelas.setText("");
+        frm.txtNamaKelas.setText("");
+        frm.cbNip.setSelectedItem(null);
         refreshData();
 
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        frmUpdateMapel frm = new frmUpdateMapel(this, true);
+        frmUpdateKelas frm = new frmUpdateKelas(this, true);
 
         //lakukan pengecekan data berdasarkan pilihan kursor
-        int baris = tMapel.getSelectedRow();
-        String noMapel = (String) tabelMapel.getValueAt(baris, 0);
-        MataPelajaran mapel = db.pilihMapel(noMapel);
-        if(mapel != null) {
-            frm.setForm(mapel);
+        int baris = tKelas.getSelectedRow();
+        String idKelas = (String) tabelKelas.getValueAt(baris, 0);
+        Kelas kelas = db.pilihKelas(idKelas);
+        if(kelas != null) {
+            frm.setForm(kelas);
             frm.setVisible(true);
             refreshData();
         } else {
-            JOptionPane.showMessageDialog(null, "Mata Pelajaran dengan no mapel " + noMapel + " tidak ditemukan");
+            JOptionPane.showMessageDialog(null, "Kelas dengan ID Kelas " + idKelas + " tidak ditemukan");
         }
 
     }//GEN-LAST:event_btnEditActionPerformed
@@ -242,22 +238,22 @@ public class frmMapel extends javax.swing.JFrame {
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
         try {
-            int baris = tMapel.getSelectedRow();
-            String noMapel = (String) tabelMapel.getValueAt(baris, 0);
-            String namaMapel = (String) tabelMapel.getValueAt(baris, 1);
-            Object jumlahJam =  tabelMapel.getValueAt(baris, 2);
+            int baris = tKelas.getSelectedRow();
+            String idKelas = (String) tabelKelas.getValueAt(baris, 0);
+            String namaKelas = (String) tabelKelas.getValueAt(baris, 1);
             Object[] pilihan = {"Ya", "Tidak"};
             int jawaban = JOptionPane.showOptionDialog(
                 null,
                 "Anda Yakin data " +
-                "Guru dengan No Mapel " + noMapel +
-                " dengan nama " + namaMapel +
-                " akan" + " dihapus ?","Peringatan",
+                "Kelas dengan idKelas " + idKelas +
+                " dengan nama kelas " + namaKelas +
+                " akan" + "dihapus ?","Peringatan",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null,pilihan,pilihan[0]
             );
 
             if(jawaban==0) {
-                db.hapusMapel(noMapel);
+              
+                db.hapusKelas(idKelas);
                 refreshData();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -266,14 +262,14 @@ public class frmMapel extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
         String kataKunci;
-        kataKunci=JOptionPane.showInputDialog(null,"No Mapel yang dicari ?"
+        kataKunci=JOptionPane.showInputDialog(null,"ID Kelas yang dicari ?"
             ,"Filter/Pencarian",JOptionPane.QUESTION_MESSAGE);
         if(kataKunci!=null)
         {
-            tabelMapel.setData(db.filterMapel(kataKunci));
-            tabelMapel.fireTableDataChanged();
+            tabelKelas.setData(db.filterKelas(kataKunci));
+            tabelKelas.fireTableDataChanged();
         }  else {
             JOptionPane.showMessageDialog(null, "Data guru tidak ditemukan!!!");
         }
@@ -301,20 +297,20 @@ public class frmMapel extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmMapel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmMapel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmMapel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmMapel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmMapel().setVisible(true);
+                new frmKelas().setVisible(true);
             }
         });
     }
@@ -328,6 +324,6 @@ public class frmMapel extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tMapel;
+    private javax.swing.JTable tKelas;
     // End of variables declaration//GEN-END:variables
 }
