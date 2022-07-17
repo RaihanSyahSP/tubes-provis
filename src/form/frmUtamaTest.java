@@ -8,6 +8,7 @@ package form;
 
 
 import formMultiple.frmGuruTest;
+import formMultiple.frmJadwalMengajar;
 import formMultiple.frmKelas;
 import formMultiple.frmMapel;
 import formMultiple.frmNilai;
@@ -133,16 +134,16 @@ public class frmUtamaTest extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jLabel1)
-                .addGap(227, 227, 227))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(jLabel1)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(158, 158, 158)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,8 +176,8 @@ public class frmUtamaTest extends javax.swing.JFrame {
 
     private void menuJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJadwalActionPerformed
         // TODO add your handling code here:
-//        frmJadwal jadwal  = new frmJadwal();
-//        jadwal.setVisible(true);
+        frmJadwalMengajar jadwalmengajar  = new frmJadwalMengajar();
+        jadwalmengajar.setVisible(true);
     }//GEN-LAST:event_menuJadwalActionPerformed
 
     private void menuNilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNilaiActionPerformed

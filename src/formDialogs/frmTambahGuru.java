@@ -82,6 +82,8 @@ public class frmTambahGuru extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Pendidikan");
 
+        txtNIP.setText("    ");
+
         txtAlamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlamatActionPerformed(evt);

@@ -77,7 +77,6 @@ public class frmTambahSiswa extends javax.swing.JDialog {
     private void initComponents() {
 
         rJK = new javax.swing.ButtonGroup();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         tblSimpan = new javax.swing.JButton();
         tblBatal = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -87,9 +86,9 @@ public class frmTambahSiswa extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtNIS = new javax.swing.JTextField();
         txtNama = new javax.swing.JTextField();
-        cbKelas = new javax.swing.JComboBox<String>();
+        cbKelas = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        cbJK = new javax.swing.JComboBox<String>();
+        cbJK = new javax.swing.JComboBox<>();
         txtTglLahir = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -134,13 +133,13 @@ public class frmTambahSiswa extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Jenis Kelamin");
 
-        cbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Pilih Kelas --" }));
+        cbKelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Kelas --" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Kelas");
 
-        cbJK.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Pilih Jenis Kelamin --", "L", "P" }));
+        cbJK.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Jenis Kelamin --", "L", "P" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,14 +152,6 @@ public class frmTambahSiswa extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(69, 69, 69)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNIS, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                            .addComponent(txtNama)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -178,9 +169,16 @@ public class frmTambahSiswa extends javax.swing.JDialog {
                         .addGap(77, 77, 77)
                         .addComponent(tblBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtNIS, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                                .addComponent(txtNama)))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,11 +194,15 @@ public class frmTambahSiswa extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel4)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(cbJK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -349,7 +351,6 @@ public class frmTambahSiswa extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> cbJK;
     public javax.swing.JComboBox<String> cbKelas;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

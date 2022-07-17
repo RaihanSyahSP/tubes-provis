@@ -8,6 +8,7 @@ package models;
 
 import java.sql.Time;
 import java.util.Date;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *

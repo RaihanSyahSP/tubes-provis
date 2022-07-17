@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import models.Guru;
+import models.JadwalMengajar;
 import models.Kelas;
 import models.MataPelajaran;
 import models.Mempelajari;
@@ -904,6 +905,128 @@ public class Database {
         return kelas;
     }
     
+     
+     //punya si tabel jadwal mengajar
+    public ArrayList <JadwalMengajar> tampilJadwalMengajar() {
+       ArrayList<JadwalMengajar> list = new ArrayList<JadwalMengajar>();
+       Connection conn = null;
+       Statement s = null;
+       try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT jm.waktu_mulai, jm.waktu_selesai, jm.hari, g.nama_guru, m.nama_mapel "
+                   + "FROM jadwal_mengajar jm "
+                   + "JOIN guru g ON jm.nip = g.nip "
+                   + "JOIN mata_pelajaran m ON jm.no_mapel = m.no_mapel";
+           ResultSet rs = s.executeQuery(query);
+           while(rs.next()) {
+               list.add(
+                       new JadwalMengajar(rs.getString("waktu_mulai"),
+                                       rs.getString("waktu_selesai"),
+                                       rs.getString("hari"),
+                                       rs.getString("nama_guru"),
+                                       rs.getString("nama_mapel")
+                       )
+               );
+           }
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return list;
+    }    
     
+
+    public void tambahJadwalMengajar(JadwalMengajar jadwalajar) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "INSERT INTO jadwal_mengajar VALUES ('" + 
+                    jadwalajar.getWaktuMulai() + "','" + 
+                    jadwalajar.getWaktuSelesai() + "','" + 
+                    jadwalajar.getHari() + "','" + 
+                    jadwalajar.getNip() + "','" + 
+                    jadwalajar.getNoMapel() + "')";
+            s.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data Jadwal Mengajar berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Jadwal Mengajar ditambahkan!" + e.getMessage());
+        } finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+    }
+    
+    public ArrayList<JadwalMengajar> filterJadwalMengajar(String kataKunci) {
+        ArrayList<JadwalMengajar> listJadwalAjar = new ArrayList<JadwalMengajar>();
+        Connection conn = null;
+        Statement s = null;
+        try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT jm.waktu_mulai, jm.waktu_selesai, jm.hari, g.nama_guru, m.nama_mapel "
+                   + "FROM jadwal_mengajar jm "
+                   + "JOIN guru g ON jm.nip = g.nip "
+                   + "JOIN mata_pelajaran m ON jm.no_mapel = m.no_mapel " 
+                   + "WHERE jm.waktu_mulai like '%"+kataKunci+"%'"
+                   + " OR jm.waktu_selesai like '%"+kataKunci+"%'"
+                   + " OR jm.hari like '%"+kataKunci+"%'"
+                   + " OR g.nama_guru like '%"+kataKunci+"%'"
+                   + " OR m.nama_mapel like '%"+kataKunci+"%'"; 
+           ResultSet rs = s.executeQuery(query);
+           boolean found = false;
+           while(rs.next()) {
+               listJadwalAjar.add(
+                       new JadwalMengajar (rs.getString("waktu_mulai"),
+                                          rs.getString("waktu_selesai"),
+                                          rs.getString("hari"),
+                                          rs.getString("nama_guru"),
+                                          rs.getString("nama_mapel")
+                               
+                       )
+               );
+               found = true;
+           }
+            
+           if(found){
+               JOptionPane.showMessageDialog(null, "Data Jadwal Mengajar Ditemukan!!");
+            } else {
+               JOptionPane.showMessageDialog(null, "Data Jadwal Mengajar Tidak Ditemukan!!");
+           }
+            
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+            
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return listJadwalAjar;
+    }    
+     
 }
     
