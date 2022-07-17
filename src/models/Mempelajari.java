@@ -40,7 +40,7 @@ public class Mempelajari {
         return noMapel;
     }
     
-    public Mempelajari(double nilai, String nis, String noMapel) {
+    public Mempelajari(String nis, String noMapel,  double nilai) {
         setNilai(nilai);
         setNis(nis);
         setNoMapel(noMapel);

@@ -9,6 +9,7 @@ package form;
 
 import formMultiple.frmGuruTest;
 import formMultiple.frmMapel;
+import formMultiple.frmNilai;
 import formMultiple.frmSiswa;
 
 
@@ -168,8 +169,8 @@ public class frmUtamaTest extends javax.swing.JFrame {
 
     private void menuNilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNilaiActionPerformed
         // TODO add your handling code here:
-//        frmNilai nilai = new frmNilai();
-//        nilai.setVisible(true);
+        frmNilai nilai = new frmNilai();
+        nilai.setVisible(true);
     }//GEN-LAST:event_menuNilaiActionPerformed
 
     /**

@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import models.Guru;
 import models.MataPelajaran;
+import models.Mempelajari;
 import models.Siswa;
+//import models.TambahMempelajari;
 
 /**
  *
@@ -442,7 +444,114 @@ public class Database {
         }
         return mapel;
     }
+     
+     // function mempelajari/nilai
+    public ArrayList <Mempelajari> tampilNilai() {
+       ArrayList<Mempelajari> list = new ArrayList<Mempelajari>();
+       Connection conn = null;
+       Statement s = null;
+       try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT m.nilai, s.nama_siswa, mp.nama_mapel FROM mempelajari m JOIN siswa s ON m.nis = s.nis JOIN mata_pelajaran mp ON mp.no_mapel = m.no_mapel";
+           ResultSet rs = s.executeQuery(query);
+           while(rs.next()) {
+               list.add(
+                       new Mempelajari (rs.getString("nama_siswa"),
+                                          rs.getString("nama_mapel"),
+                                          rs.getDouble("nilai")
+                       )
+               );
+           }
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return list;
+    }
     
+    public void tambahNilai(Mempelajari nilai) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "INSERT INTO mempelajari VALUES ('" + 
+                    nilai.getNilai()+ "','" + 
+                    nilai.getNis() + "','" + 
+                    nilai.getNoMapel() + "')";
+            s.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data Nilai berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Nilai gagal ditambahkan!" + e.getMessage());
+        } finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+    }
+    
+    
+    public ArrayList<Mempelajari> filterNilai(String kataKunci) {
+        ArrayList<Mempelajari> listNilai = new ArrayList<Mempelajari>();
+        Connection conn = null;
+        Statement s = null;
+        try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement(); 
+           String query = "SELECT m.nilai, s.nama_siswa, mp.nama_mapel "
+                   + "FROM mempelajari m "
+                   + "JOIN siswa s ON m.nis = s.nis "
+                   + "JOIN mata_pelajaran mp ON mp.no_mapel = m.no_mapel "
+                   + "WHERE s.nama_siswa LIKE '%"+kataKunci+"%'";
+           ResultSet rs = s.executeQuery(query);
+           boolean found = false;
+           while(rs.next()) {
+               listNilai.add(
+                        new Mempelajari (rs.getString("nama_siswa"),
+                                          rs.getString("nama_mapel"),
+                                          rs.getDouble("nilai")
+                       )
+               );
+               found = true;
+           }
+            
+           if(found){
+               JOptionPane.showMessageDialog(null, "Data Nilai Ditemukan!!");
+            } else {
+               JOptionPane.showMessageDialog(null, "Data Nilai Tidak Ditemukan!!");
+           }
+            
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+            
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return listNilai;
+    }
     
 }
     
