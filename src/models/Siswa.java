@@ -7,6 +7,7 @@
 package models;
 
 import java.sql.Date;
+import javax.swing.ButtonModel;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.sql.Date;
 public class Siswa {
     private String nis;
     private String namaSiswa;
-    private Date tglLahir;
+    private String tglLahir;
     private String jenisKelamin;
     private String idKelas;
     
@@ -29,7 +30,7 @@ public class Siswa {
         namaSiswa = na;
     }
     
-    public void setTglLahir(Date tl)
+    public void setTglLahir(String tl)
     {
         tglLahir = tl;
     }
@@ -54,7 +55,7 @@ public class Siswa {
         return namaSiswa;
     }
         
-    public Date getTglLahir()
+    public String getTglLahir()
     {
         return tglLahir;
     }
@@ -69,7 +70,7 @@ public class Siswa {
         return idKelas;
     }
     
-    public Siswa(String nis, String nama, Date tglLahir, String jk, String idKelas)
+    public Siswa(String nis, String nama, String tglLahir, String jk, String idKelas)
     {
         setNis(nis);
         setNamaSiswa(nama);

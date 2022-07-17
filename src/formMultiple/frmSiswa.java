@@ -6,7 +6,12 @@
 
 package formMultiple;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import database.Database;
+import formDialogs.frmTambahSiswa;
+import formDialogs.frmUpdateSiswa;
+import javax.swing.JOptionPane;
+import models.Siswa;
 import tabelModels.SiswaTableModel;
 
 /**
@@ -200,73 +205,72 @@ public class frmSiswa extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-//        frmTambahGuru frm = new frmTambahGuru(this, true);
-//        frm.setVisible(true);
-//        frm.txtNIP.setText("");
-//        frm.txtNama.setText("");
-//        frm.txtAlamat.setText("");
-//        frm.txtPendidikan.setText("");
-//        refreshData();
+        frmTambahSiswa frm = new frmTambahSiswa(this, true);
+        frm.setVisible(true);
+        frm.txtNIS.setText("");
+        frm.txtNama.setText("");
+        frm.txtTglLahir.setDate(null);
+        frm.cbJK.setSelectedIndex(0);
+        frm.cbKelas.setSelectedIndex(0);
+        refreshData();
 
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-//        frmUpdateGuru frm = new frmUpdateGuru(this, true);
+        frmUpdateSiswa frm = new frmUpdateSiswa(this, true);
 //
 //        //lakukan pengecekan data berdasarkan pilihan kursor
-//        int baris = tGuru.getSelectedRow();
-//        String nip = (String) tabelGuru.getValueAt(baris, 0);
-//        Guru guru = db.pilihGuru(nip);
-//        if(guru != null) {
-//            frm.setForm(guru);
-//            frm.setVisible(true);
-//            refreshData();
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Guu dengan NIP " + nip + " tidak ditemukan");
-//        }
+        int baris = tSiswa.getSelectedRow();
+        String nis = (String) tabelSiswa.getValueAt(baris, 0);
+        Siswa siswa = db.pilihSiswa(nis);
+        if(siswa != null) {
+            frm.setForm(siswa);
+            frm.setVisible(true);
+            refreshData();
+        } else {
+            JOptionPane.showMessageDialog(null, "Siswa dengan NIS " + nis + " tidak ditemukan");
+        }
 
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-//        try {
-//            int baris = tGuru.getSelectedRow();
-//            String nip = (String) tabelGuru.getValueAt(baris, 0);
-//            String nama = (String) tabelGuru.getValueAt(baris, 1);
-//            String alamat = (String) tabelGuru.getValueAt(baris, 2);
-//            String pendidikan = (String) tabelGuru.getValueAt(baris, 3);
-//            Object[] pilihan = {"Ya", "Tidak"};
-//            int jawaban = JOptionPane.showOptionDialog(
-//                null,
-//                "Anda Yakin data " +
-//                "Guru dengan NIP " + nip +
-//                " dengan nama " + nama +
-//                " akan" + "dihapus ?","Peringatan",
-//                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null,pilihan,pilihan[0]
-//            );
-//
-//            if(jawaban==0) {
-//                db.hapusGuru(nip);
-//                refreshData();
-//            }
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus");
-//        }
+        try {
+            int baris = tSiswa.getSelectedRow();
+            String nis = (String) tabelSiswa.getValueAt(baris, 0);
+            String nama = (String) tabelSiswa.getValueAt(baris, 1);
+            Object[] pilihan = {"Ya", "Tidak"};
+            int jawaban = JOptionPane.showOptionDialog(
+                null,
+                "Anda Yakin data " +
+                "Siswa dengan NIS " + nis +
+                " dengan nama " + nama +
+                " akan" + "dihapus ?","Peringatan",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null,pilihan,pilihan[0]
+            );
+
+            if(jawaban==0) {
+                db.hapusSiswa(nis);
+                refreshData();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus");
+        }
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
-//        String kataKunci;
-//        kataKunci=JOptionPane.showInputDialog(null,"NIP Guru yang dicari ?"
-//            ,"Filter/Pencarian",JOptionPane.QUESTION_MESSAGE);
-//        if(kataKunci!=null)
-//        {
-//            tabelGuru.setData(db.filterGuru(kataKunci));
-//            tabelGuru.fireTableDataChanged();
-//        }  else {
-//            JOptionPane.showMessageDialog(null, "Data guru tidak ditemukan!!!");
-//        }
+        String kataKunci;
+        kataKunci=JOptionPane.showInputDialog(null,"NIS Siswa yang dicari ?"
+            ,"Filter/Pencarian",JOptionPane.QUESTION_MESSAGE);
+        if(kataKunci!=null)
+        {
+            tabelSiswa.setData(db.filterSiswa(kataKunci));
+            tabelSiswa.fireTableDataChanged();
+        }  else {
+            JOptionPane.showMessageDialog(null, "Data siswa tidak ditemukan!!!");
+        }
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -318,7 +322,7 @@ public class frmSiswa extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tSiswa;
+    public javax.swing.JTable tSiswa;
     // End of variables declaration//GEN-END:variables
 
 }

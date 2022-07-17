@@ -223,7 +223,6 @@ public class Database {
         return guru;
     }
     
-    
     // function siswa
     public ArrayList <Siswa> tampilSiswa() {
        ArrayList<Siswa> list = new ArrayList<Siswa>();
@@ -233,15 +232,15 @@ public class Database {
            Class.forName(driver);
            conn = DriverManager.getConnection(url, user, pass);
            s = conn.createStatement();
-           String query = "SELECT * FROM siswa";
+           String query = "SELECT s.nis, s.nama_siswa, s.tgl_lahir, s.jenis_kelamin, k.nama_kelas FROM siswa s JOIN kelas k ON s.id_kelas = k.id_kelas";
            ResultSet rs = s.executeQuery(query);
            while(rs.next()) {
                list.add(
                        new Siswa (rs.getString("nis"),
                                  rs.getString("nama_siswa"),
-                                 rs.getDate("tgl_lahir"),
+                                 rs.getString("tgl_lahir"),
                                  rs.getString("jenis_kelamin"),
-                                 rs.getString("id_kelas")
+                                 rs.getString("nama_kelas")
                        )
                );
            }
@@ -258,6 +257,171 @@ public class Database {
            } catch (Exception e) {}
        }
        return list;
+    }
+    
+    public void tambahSiswa(Siswa siswa) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "INSERT INTO siswa VALUES ('" + 
+                    siswa.getNis()+ "','" + 
+                    siswa.getNamaSiswa()+ "','" + 
+                    siswa.getTglLahir() + "','" + 
+                    siswa.getJenisKelamin() + "','" + 
+                    siswa.getIdKelas() + "')";
+            s.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data Siswa berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Siswa gagal ditambahkan!" + e.getMessage());
+        } finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+    }
+    
+    public void updateSiswa(Siswa siswa) {
+        Connection conn = null;
+        Statement stmt = null;
+        
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String query = "UPDATE siswa set nis = '" + siswa.getNis() +
+                           "'," + "nama_siswa = '" + siswa.getNamaSiswa() +
+                           "'," + "tgl_lahir = '" + siswa.getTglLahir() +
+                           "'," + "jenis_kelamin = '" + siswa.getJenisKelamin() +
+                           "'," + "id_kelas = '" + siswa.getIdKelas() +
+                          "' WHERE nis = '" + siswa.getNis() + "'";
+            stmt.executeUpdate(query);
+                           
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+    }
+    
+    public Siswa pilihSiswa(String nis) {
+        Siswa siswa = null;
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM siswa WHERE nis = '" + nis + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()) {
+                siswa = new Siswa(rs.getString("nis"),
+                                 rs.getString("nama_siswa"),
+                                 rs.getString("tgl_lahir"),
+                                 rs.getString("jenis_kelamin"),
+                                 rs.getString("id_kelas")
+                );
+            } else {
+                siswa = null;
+            }
+            rs.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+        return siswa;
+    }
+    
+    public void hapusSiswa(String nis) {
+        Connection conn = null;
+        Statement s = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, pass);
+            s = conn.createStatement();
+            String query = "DELETE FROM siswa WHERE nis = '" + nis + "'";
+            s.executeUpdate(query);   
+        } catch(Exception e){
+            System.out.println("Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Siswa gagal dihapus!" + e.getMessage());
+        }
+        finally {
+            try {
+                s.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            }catch (Exception e) {}
+        }
+    }
+    
+    public ArrayList<Siswa> filterSiswa(String kataKunci) {
+        ArrayList<Siswa> listSiswa = new ArrayList<Siswa>();
+        Connection conn = null;
+        Statement s = null;
+        try {
+           Class.forName(driver);
+           conn = DriverManager.getConnection(url, user, pass);
+           s = conn.createStatement();
+           String query = "SELECT s.nis, s.nama_siswa, s.tgl_lahir, s.jenis_kelamin, k.nama_kelas FROM siswa s JOIN kelas k ON s.id_kelas = k.id_kelas WHERE"
+                                                  + " s.nis like '%"+kataKunci+"%'"
+                                                  + " OR s.nama_siswa like '%"+kataKunci+"%'"
+                                                  + " OR s.tgl_lahir like '%"+kataKunci+"%'"
+                                                  + " OR s.jenis_kelamin like '%"+kataKunci+"%'"
+                                                  + " OR k.nama_kelas like '%"+kataKunci+"%'"; 
+           ResultSet rs = s.executeQuery(query);
+           boolean found = false;
+           while(rs.next()) {
+               listSiswa.add(
+                       new Siswa (rs.getString("nis"),
+                                  rs.getString("nama_siswa"),
+                                 rs.getString("tgl_lahir"),
+                                 rs.getString("jenis_kelamin"),
+                                 rs.getString("nama_kelas")
+                       )
+               );
+               found = true;
+           }
+            
+           if(found){
+               JOptionPane.showMessageDialog(null, "Data Siswa Ditemukan!!");
+            } else {
+               JOptionPane.showMessageDialog(null, "Data Siswa Tidak Ditemukan!!");
+           }
+            
+           rs.close();
+           
+       } catch (Exception e) {
+           System.out.println("Error : " + e.getMessage());
+            
+       } finally {
+           try {
+               s.close();
+           } catch (Exception e) {}
+           try {
+               conn.close();
+           } catch (Exception e) {}
+       }
+       return listSiswa;
     }
     
    // function mapel

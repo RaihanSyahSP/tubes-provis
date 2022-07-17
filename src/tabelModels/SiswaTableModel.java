@@ -15,7 +15,7 @@ import models.Siswa;
  */
 public class SiswaTableModel extends AbstractTableModel {
     private ArrayList<Siswa> data;
-    private String[] namaField = {"NIS", "Nama Siswa", "Tanggal Lahir", "Jenis Kelamin", "Id Kelas"};
+    private String[] namaField = {"NIS", "Nama Siswa", "Tanggal Lahir", "Jenis Kelamin", "Nama Kelas"};
     
     public void setData(ArrayList<Siswa> dt) {
         this.data = dt; 
