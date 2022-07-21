@@ -8,8 +8,18 @@ package formMultiple;
 
 import database.Database;
 import formDialogs.frmTambahNilai;
+import formReport.frmReportNilai;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import models.Mempelajari;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 //import models.TambahMempelajari;
 import tabelModels.NilaiTableModel;
 
@@ -59,6 +69,8 @@ public class frmNilai extends javax.swing.JFrame {
         btnTambah = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        rNilai = new javax.swing.JButton();
+        rNilais = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,18 +142,45 @@ public class frmNilai extends javax.swing.JFrame {
             }
         });
 
+        rNilai.setBackground(new java.awt.Color(51, 153, 255));
+        rNilai.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rNilai.setForeground(new java.awt.Color(255, 255, 255));
+        rNilai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rNilai.setText("Filter Cetak Laporan");
+        rNilai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rNilai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rNilaiActionPerformed(evt);
+            }
+        });
+
+        rNilais.setBackground(new java.awt.Color(51, 153, 255));
+        rNilais.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rNilais.setForeground(new java.awt.Color(255, 255, 255));
+        rNilais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rNilais.setText("Cetak Semua");
+        rNilais.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rNilais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rNilaisActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rNilai)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(258, 258, 258))
+                        .addGap(89, 89, 89)
+                        .addComponent(rNilais)
+                        .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,10 +197,13 @@ public class frmNilai extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKembali)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(rNilais, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rNilai, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnTambah)
@@ -212,6 +254,36 @@ public class frmNilai extends javax.swing.JFrame {
         refreshData();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void rNilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNilaiActionPerformed
+        // TODO add your handling code here:
+        frmReportNilai frm = new frmReportNilai();
+        frm.setVisible(true);
+    }//GEN-LAST:event_rNilaiActionPerformed
+
+    private void rNilaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNilaisActionPerformed
+        // TODO add your handling code here:
+        try {
+            Class.forName(db.driver);
+            Connection conn = DriverManager.getConnection(db.url, db.user, db.pass);
+            // param
+            HashMap param = new HashMap();
+
+            // ambil data dari jrxml
+            JasperReport jr = JasperCompileManager.compileReport("src/reports/reportNilai.jrxml");
+
+            //print
+            JasperPrint jp = JasperFillManager.fillReport(jr, param, conn);
+
+            //tampilkan data
+            JasperViewer.viewReport(jp, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+            JasperExportManager.exportReportToPdfFile(jp, "src/pdf/laporanNilai.pdf");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error : " + e);
+        }
+    }//GEN-LAST:event_rNilaisActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -254,6 +326,8 @@ public class frmNilai extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton rNilai;
+    private javax.swing.JButton rNilais;
     private javax.swing.JTable tNilai;
     // End of variables declaration//GEN-END:variables
 }

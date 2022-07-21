@@ -59,7 +59,6 @@ public class frmUtamaTest extends javax.swing.JFrame {
         menuMapel = new javax.swing.JMenuItem();
         menuJadwal = new javax.swing.JMenuItem();
         menuNilai = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,9 +122,6 @@ public class frmUtamaTest extends javax.swing.JFrame {
         jMenu2.add(menuNilai);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu5.setText("Laporan");
-        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -225,7 +221,6 @@ public class frmUtamaTest extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuGuru;
     private javax.swing.JMenuItem menuJadwal;

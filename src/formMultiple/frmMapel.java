@@ -9,8 +9,18 @@ package formMultiple;
 import database.Database;
 import formDialogs.frmTambahMapel;
 import formDialogs.frmUpdateMapel;
+import formReport.frmReportMapel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import models.MataPelajaran;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import tabelModels.GuruTableModel;
 import tabelModels.MapelTableModel;
 
@@ -62,6 +72,8 @@ public class frmMapel extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        rSiswa = new javax.swing.JButton();
+        rSiswas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -157,20 +169,47 @@ public class frmMapel extends javax.swing.JFrame {
             }
         });
 
+        rSiswa.setBackground(new java.awt.Color(51, 153, 255));
+        rSiswa.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rSiswa.setForeground(new java.awt.Color(255, 255, 255));
+        rSiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rSiswa.setText("Filter Cetak Laporan");
+        rSiswa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSiswaActionPerformed(evt);
+            }
+        });
+
+        rSiswas.setBackground(new java.awt.Color(51, 153, 255));
+        rSiswas.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rSiswas.setForeground(new java.awt.Color(255, 255, 255));
+        rSiswas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rSiswas.setText("Cetak Semua");
+        rSiswas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rSiswas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSiswasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rSiswa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(258, 258, 258))
+                        .addGap(97, 97, 97)
+                        .addComponent(rSiswas))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnKembali)
@@ -187,10 +226,17 @@ public class frmMapel extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnKembali)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(rSiswa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rSiswas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnKembali, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnTambah)
@@ -290,6 +336,36 @@ public class frmMapel extends javax.swing.JFrame {
         refreshData();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void rSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSiswaActionPerformed
+        // TODO add your handling code here:
+        frmReportMapel frm = new frmReportMapel();
+        frm.setVisible(true);
+    }//GEN-LAST:event_rSiswaActionPerformed
+
+    private void rSiswasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSiswasActionPerformed
+        // TODO add your handling code here:
+        try {
+            Class.forName(db.driver);
+            Connection conn = DriverManager.getConnection(db.url, db.user, db.pass);
+            // param
+            HashMap param = new HashMap();
+
+            // ambil data dari jrxml
+            JasperReport jr = JasperCompileManager.compileReport("src/reports/reportMapel.jrxml");
+
+            //print
+            JasperPrint jp = JasperFillManager.fillReport(jr, param, conn);
+
+            //tampilkan data
+            JasperViewer.viewReport(jp, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+            JasperExportManager.exportReportToPdfFile(jp, "src/pdf/laporanMapel.pdf");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error : " + e);
+        }
+    }//GEN-LAST:event_rSiswasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -334,6 +410,8 @@ public class frmMapel extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton rSiswa;
+    private javax.swing.JButton rSiswas;
     private javax.swing.JTable tMapel;
     // End of variables declaration//GEN-END:variables
 }

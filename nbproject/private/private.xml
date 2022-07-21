@@ -3,39 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/formMultiple/frmJadwalMengajar.java</file>
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/database/Database.java</file>
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/formMultiple/frmGuruTest.java</file>
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/formDialogs/frmTambahJadwalMengajar.java</file>
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/form/frmUtamaTest.java</file>
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/formDialogs/frmTambahGuru.java</file>
-            <file>file:/C:/Users/HP/Desktop/tubes-provis/src/models/JadwalMengajar.java</file>
-=======
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/models/MataPelajaran.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmNilai.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/MapelTableModel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/models/Mempelajari.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahMapel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateMapel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/models/Kelas.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/form/frmUtamaTest.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/database/Database.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/NilaiTableModel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahNilai.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/SiswaTableModel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmGuruTest.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateGuru.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmKelas.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahKelas.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/KelasTableModel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmUpdateKelas.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmSiswa.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahGuru.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/tabelModels/GuruTableModel.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formDialogs/frmTambahSiswa.java</file>
-            <file>file:/D:/NetbeansProjects/TubesProvis5/src/formMultiple/frmMapel.java</file>
->>>>>>> 9831ba09c4a805b0a7193350bc2cf1421962d0da
+            <file>file:/C:/Users/Lenovo/Desktop/tubes-provis/src/formReport/frmReportJadwalMengajar.java</file>
         </group>
     </open-files>
 </project-private>

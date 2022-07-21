@@ -10,8 +10,18 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import database.Database;
 import formDialogs.frmTambahSiswa;
 import formDialogs.frmUpdateSiswa;
+import formReport.frmReportSiswa;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import models.Siswa;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import tabelModels.SiswaTableModel;
 
 /**
@@ -60,6 +70,8 @@ public class frmSiswa extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        rSiswa = new javax.swing.JButton();
+        rSiswas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -155,36 +167,71 @@ public class frmSiswa extends javax.swing.JFrame {
             }
         });
 
+        rSiswa.setBackground(new java.awt.Color(51, 153, 255));
+        rSiswa.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rSiswa.setForeground(new java.awt.Color(255, 255, 255));
+        rSiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rSiswa.setText("Filter Cetak Laporan");
+        rSiswa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rSiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSiswaActionPerformed(evt);
+            }
+        });
+
+        rSiswas.setBackground(new java.awt.Color(51, 153, 255));
+        rSiswas.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rSiswas.setForeground(new java.awt.Color(255, 255, 255));
+        rSiswas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rSiswas.setText("Cetak Semua");
+        rSiswas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rSiswas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSiswasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTambah)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(339, 339, 339)
-                .addComponent(btnKembali)
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnTambah)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rSiswa)
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rSiswas)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnKembali)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnKembali))
-                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnKembali)
+                        .addComponent(rSiswas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rSiswa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
@@ -284,6 +331,36 @@ public class frmSiswa extends javax.swing.JFrame {
         refreshData();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void rSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSiswaActionPerformed
+        // TODO add your handling code here:
+        frmReportSiswa frm = new frmReportSiswa();
+        frm.setVisible(true);
+    }//GEN-LAST:event_rSiswaActionPerformed
+
+    private void rSiswasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSiswasActionPerformed
+        // TODO add your handling code here:
+        try {
+            Class.forName(db.driver);
+            Connection conn = DriverManager.getConnection(db.url, db.user, db.pass);
+            // param
+            HashMap param = new HashMap();
+            
+            // ambil data dari jrxml
+            JasperReport jr = JasperCompileManager.compileReport("src/reports/reportSiswa.jrxml");
+
+            //print
+            JasperPrint jp = JasperFillManager.fillReport(jr, param, conn);
+            
+            //tampilkan data
+            JasperViewer.viewReport(jp, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+            JasperExportManager.exportReportToPdfFile(jp, "src/pdf/laporanSiswa.pdf");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error : " + e);
+        }
+    }//GEN-LAST:event_rSiswasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,6 +405,8 @@ public class frmSiswa extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton rSiswa;
+    private javax.swing.JButton rSiswas;
     public javax.swing.JTable tSiswa;
     // End of variables declaration//GEN-END:variables
 

@@ -9,8 +9,18 @@ package formMultiple;
 import database.Database;
 import formDialogs.frmTambahKelas;
 import formDialogs.frmUpdateKelas;
+import formReport.frmReportKelas;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import models.Kelas;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import tabelModels.KelasTableModel;
 
 /**
@@ -61,6 +71,8 @@ public class frmKelas extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tKelas = new javax.swing.JTable();
+        rKelas = new javax.swing.JButton();
+        rKelass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,19 +168,46 @@ public class frmKelas extends javax.swing.JFrame {
         tKelas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(tKelas);
 
+        rKelas.setBackground(new java.awt.Color(51, 153, 255));
+        rKelas.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rKelas.setForeground(new java.awt.Color(255, 255, 255));
+        rKelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rKelas.setText("Filter Cetak Laporan");
+        rKelas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rKelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rKelasActionPerformed(evt);
+            }
+        });
+
+        rKelass.setBackground(new java.awt.Color(51, 153, 255));
+        rKelass.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rKelass.setForeground(new java.awt.Color(255, 255, 255));
+        rKelass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rKelass.setText("Cetak Semua");
+        rKelass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rKelass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rKelassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rKelas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(263, 263, 263)
+                        .addGap(102, 102, 102)
+                        .addComponent(rKelass)
+                        .addGap(18, 18, 18)
                         .addComponent(btnKembali))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +224,9 @@ public class frmKelas extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(btnKembali))
+                    .addComponent(btnKembali)
+                    .addComponent(rKelass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -286,6 +327,36 @@ public class frmKelas extends javax.swing.JFrame {
         refreshData();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void rKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rKelasActionPerformed
+        // TODO add your handling code here:
+        frmReportKelas frm = new frmReportKelas();
+        frm.setVisible(true);
+    }//GEN-LAST:event_rKelasActionPerformed
+
+    private void rKelassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rKelassActionPerformed
+        // TODO add your handling code here:
+        try {
+            Class.forName(db.driver);
+            Connection conn = DriverManager.getConnection(db.url, db.user, db.pass);
+            // param
+            HashMap param = new HashMap();
+
+            // ambil data dari jrxml
+            JasperReport jr = JasperCompileManager.compileReport("src/reports/reportKelas.jrxml");
+
+            //print
+            JasperPrint jp = JasperFillManager.fillReport(jr, param, conn);
+
+            //tampilkan data
+            JasperViewer.viewReport(jp, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+            JasperExportManager.exportReportToPdfFile(jp, "src/pdf/laporanKelas.pdf");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error : " + e);
+        }
+    }//GEN-LAST:event_rKelassActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,6 +401,8 @@ public class frmKelas extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton rKelas;
+    private javax.swing.JButton rKelass;
     private javax.swing.JTable tKelas;
     // End of variables declaration//GEN-END:variables
 }

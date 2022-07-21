@@ -9,9 +9,19 @@ package formMultiple;
 import database.Database;
 import formDialogs.frmTambahGuru;
 import formDialogs.frmUpdateGuru;
+import formReport.frmReportGuru;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import models.Guru;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import tabelModels.GuruTableModel;
 
 /**
@@ -66,6 +76,8 @@ public class frmGuruTest extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnKembali = new javax.swing.JButton();
+        rGuru = new javax.swing.JButton();
+        rGurus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -163,6 +175,30 @@ public class frmGuruTest extends javax.swing.JFrame {
             }
         });
 
+        rGuru.setBackground(new java.awt.Color(51, 153, 255));
+        rGuru.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rGuru.setForeground(new java.awt.Color(255, 255, 255));
+        rGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rGuru.setText("Filter Cetak Laporan");
+        rGuru.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rGuru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rGuruActionPerformed(evt);
+            }
+        });
+
+        rGurus.setBackground(new java.awt.Color(51, 153, 255));
+        rGurus.setFont(new java.awt.Font("Arial", 3, 13)); // NOI18N
+        rGurus.setForeground(new java.awt.Color(255, 255, 255));
+        rGurus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/printer.png"))); // NOI18N
+        rGurus.setText("Cetak Semua");
+        rGurus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rGurus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rGurusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,15 +213,19 @@ public class frmGuruTest extends javax.swing.JFrame {
                     .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(230, 230, 230)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(341, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(rGuru)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(290, 290, 290)))
+                        .addGap(129, 129, 129)
+                        .addComponent(rGurus)
+                        .addGap(18, 18, 18)))
                 .addComponent(btnKembali))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -201,7 +241,9 @@ public class frmGuruTest extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnKembali)
-                            .addComponent(jLabel2)))
+                            .addComponent(jLabel2)
+                            .addComponent(rGurus)
+                            .addComponent(rGuru)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel1)))
@@ -307,6 +349,36 @@ public class frmGuruTest extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btnKembaliActionPerformed
 
+    private void rGurusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rGurusActionPerformed
+        // TODO add your handling code here:
+        try {
+            Class.forName(db.driver);
+            Connection conn = DriverManager.getConnection(db.url, db.user, db.pass);
+            // param
+            HashMap param = new HashMap();
+            
+            // ambil data dari jrxml
+            JasperReport jr = JasperCompileManager.compileReport("src/reports/reportGuru.jrxml");
+
+            //print
+            JasperPrint jp = JasperFillManager.fillReport(jr, param, conn);
+            
+            //tampilkan data
+            JasperViewer.viewReport(jp, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+            JasperExportManager.exportReportToPdfFile(jp, "src/pdf/laporanGuru.pdf");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error : " + e);
+        }
+    }//GEN-LAST:event_rGurusActionPerformed
+
+    private void rGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rGuruActionPerformed
+        // TODO add your handling code here:
+        frmReportGuru frm = new frmReportGuru();
+        frm.setVisible(true);
+    }//GEN-LAST:event_rGuruActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -352,6 +424,8 @@ public class frmGuruTest extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton rGuru;
+    private javax.swing.JButton rGurus;
     private javax.swing.JTable tGuru;
     // End of variables declaration//GEN-END:variables
 }
