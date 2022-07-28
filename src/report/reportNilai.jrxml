@@ -14,7 +14,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="nilai" class="java.lang.Double">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[$F{nilai}.toString( double )]]></defaultValueExpression>
 	</parameter>
 	<parameter name="nama" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>

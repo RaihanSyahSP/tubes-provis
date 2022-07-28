@@ -34,18 +34,15 @@ public class frmTambahNilai extends javax.swing.JDialog {
         tampilNoMapel();
     }
     
-    public final String driver = "com.mysql.jdbc.Driver";
-    public final String url = "jdbc:mysql://localhost/db10120194Sekolah";
-    public final String user = "root";
-    public final String pass = "";
+    Database db = new Database();
     
     
     public void tampilNis() {
         Connection conn = null;
         Statement stmt = null;
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, pass);
+            Class.forName(db.driver);
+            conn = DriverManager.getConnection(db.url, db.user, db.pass);
             stmt = conn.createStatement();
             String query = "SELECT nis, nama_siswa FROM siswa";
             ResultSet rs = stmt.executeQuery(query);
@@ -74,8 +71,8 @@ public class frmTambahNilai extends javax.swing.JDialog {
         Connection conn = null;
         Statement stmt = null;
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, pass);
+            Class.forName(db.driver);
+            conn = DriverManager.getConnection(db.url, db.user, db.pass);
             stmt = conn.createStatement();
             String query = "SELECT no_mapel, nama_mapel FROM mata_pelajaran";
             ResultSet rs = stmt.executeQuery(query);

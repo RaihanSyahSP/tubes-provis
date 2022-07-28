@@ -232,7 +232,7 @@ public class frmReportNilai extends javax.swing.JFrame {
 
             // ambil data dari jrxml
             JasperReport jr = JasperCompileManager.compileReport("src/report/reportNilai.jrxml");
-            param.put("nilai", cbNilai.getSelectedItem());
+//            param.put("nilai", cbNilai.getSelectedItem());
             param.put("nama", cbNama.getSelectedItem());
             param.put("mapel", cbMapel.getSelectedItem());
 

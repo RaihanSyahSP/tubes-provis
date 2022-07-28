@@ -18,7 +18,6 @@ import models.Kelas;
 import models.MataPelajaran;
 import models.Mempelajari;
 import models.Siswa;
-//import models.TambahMempelajari;
 
 /**
  *
@@ -124,7 +123,11 @@ public class Database {
            Class.forName(driver);
            conn = DriverManager.getConnection(url, user, pass);
            s = conn.createStatement();
-           String query = "SELECT * FROM guru WHERE nip like '%"+kataKunci+"%'"; 
+           String query = "SELECT * FROM guru WHERE "
+                   + "nip like '%"+kataKunci+"%'"
+                   + " OR nama_guru like '%"+kataKunci+"%'"
+                   + " OR alamat like '%"+kataKunci+"%'"
+                   + " OR pendidikan like '%"+kataKunci+"%'"; 
            ResultSet rs = s.executeQuery(query);
            boolean found = false;
            while(rs.next()) {
@@ -517,7 +520,10 @@ public class Database {
            Class.forName(driver);
            conn = DriverManager.getConnection(url, user, pass);
            s = conn.createStatement();
-           String query = "SELECT * FROM mata_pelajaran WHERE no_mapel like '%"+kataKunci+"%'"; 
+           String query = "SELECT * FROM mata_pelajaran WHERE "
+                   + "no_mapel like '%"+kataKunci+"%'"
+                   + " OR nama_mapel like '%"+kataKunci+"%'"
+                   + " OR jumlah_jam like '%"+kataKunci+"%'"; 
            ResultSet rs = s.executeQuery(query);
            boolean found = false;
            while(rs.next()) {
@@ -787,14 +793,17 @@ public class Database {
            Class.forName(driver);
            conn = DriverManager.getConnection(url, user, pass);
            s = conn.createStatement();
-           String query = "SELECT * FROM kelas WHERE id_kelas like '%"+kataKunci+"%'"; 
+           String query = "SELECT k.id_kelas,k.nama_kelas,g.nama_guru FROM kelas k JOIN guru g ON k.nip=g.nip WHERE "
+                   + "id_kelas like '%"+kataKunci+"%'"
+                   + " OR nama_kelas like '%"+kataKunci+"%'"
+                   + " OR nama_guru like '%"+kataKunci+"%'"; 
            ResultSet rs = s.executeQuery(query);
            boolean found = false;
            while(rs.next()) {
                listKelas.add(
                        new Kelas (rs.getString("id_kelas"),
                                           rs.getString("nama_kelas"),
-                                          rs.getString("nip")
+                                          rs.getString("nama_guru")
                        )
                );
                found = true;

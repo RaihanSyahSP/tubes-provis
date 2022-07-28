@@ -32,17 +32,14 @@ public class frmTambahJadwalMengajar extends javax.swing.JDialog {
         getContentPane().setBackground(new java.awt.Color(96, 96, 96));
     }
     
-    public final String driver = "com.mysql.jdbc.Driver";
-    public final String url = "jdbc:mysql://localhost/db10120194Sekolah";
-    public final String user = "root";
-    public final String pass = "";
+    Database db = new Database();
     
     public void tampilNip() {
         Connection conn = null;
         Statement stmt = null;
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, pass);
+            Class.forName(db.driver);
+            conn = DriverManager.getConnection(db.url, db.user, db.pass);
             stmt = conn.createStatement();
             String query = "SELECT nip, nama_guru FROM guru ORDER BY nip";
             ResultSet rs = stmt.executeQuery(query);
@@ -71,8 +68,8 @@ public class frmTambahJadwalMengajar extends javax.swing.JDialog {
         Connection conn = null;
         Statement stmt = null;
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, pass);
+            Class.forName(db.driver);
+            conn = DriverManager.getConnection(db.url, db.user, db.pass);
             stmt = conn.createStatement();
             String query = "SELECT no_mapel, nama_mapel FROM mata_pelajaran ORDER BY no_mapel";
             ResultSet rs = stmt.executeQuery(query);

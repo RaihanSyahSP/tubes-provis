@@ -44,17 +44,14 @@ public class frmUpdateSiswa extends javax.swing.JDialog {
         cbKelas.setSelectedItem(s.getIdKelas());
     }
     
-    public final String driver = "com.mysql.jdbc.Driver";
-    public final String url = "jdbc:mysql://localhost/db10120194Sekolah";
-    public final String user = "root";
-    public final String pass = "";
+    Database db = new Database();
     
     public void tampilKelas() {
         Connection conn = null;
         Statement stmt = null;
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, pass);
+            Class.forName(db.driver);
+            conn = DriverManager.getConnection(db.url, db.user, db.pass);
             stmt = conn.createStatement();
             String query = "SELECT id_kelas, nama_kelas FROM kelas ORDER BY id_kelas";
             ResultSet rs = stmt.executeQuery(query);

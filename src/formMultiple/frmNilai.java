@@ -238,7 +238,7 @@ public class frmNilai extends javax.swing.JFrame {
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
 //         TODO add your handling code here:
         String kataKunci;
-        kataKunci=JOptionPane.showInputDialog(null,"Nama yang dicari ?"
+        kataKunci=JOptionPane.showInputDialog(null,"Data nilai yang dicari ?"
             ,"Filter/Pencarian",JOptionPane.QUESTION_MESSAGE);
         if(kataKunci!=null)
         {

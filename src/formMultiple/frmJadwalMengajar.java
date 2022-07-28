@@ -44,17 +44,12 @@ public class frmJadwalMengajar extends javax.swing.JFrame {
         tabelJadwalMengajar.setData(db.tampilJadwalMengajar());
         tjadwalmengajar.setModel(tabelJadwalMengajar);
     }
-
-//    private void initComponents() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
     
      public void refreshData() {
         tabelJadwalMengajar.setData(db.tampilJadwalMengajar());
         tabelJadwalMengajar.fireTableDataChanged();
         tjadwalmengajar.changeSelection(0, 0, false, false);
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.

@@ -53,10 +53,6 @@ public class frmGuruTest extends javax.swing.JFrame {
         tGuru.changeSelection(0, 0, false, false);
     }
     
-   
-    
-   
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -315,7 +311,7 @@ public class frmGuruTest extends javax.swing.JFrame {
     private void btnCariGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariGuruActionPerformed
         // TODO add your handling code here:
         String kataKunci;
-        kataKunci=JOptionPane.showInputDialog(null,"NIP Guru yang dicari ?"
+        kataKunci=JOptionPane.showInputDialog(null,"Data Guru yang dicari ?"
         ,"Filter/Pencarian",JOptionPane.QUESTION_MESSAGE);
         if(kataKunci!=null)
         {
